@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace ConsoleApp1
 {
     class Program
     {
-        string now;
+        
         static void Main(string[] args)
         {
             
@@ -16,89 +17,92 @@ namespace ConsoleApp1
             {
                 if(arg == "ground")
                 {
-                    ground();
+                    Ground();
                 }
             }
+            
+            StartUp();
+        }
+
+        private static void StartUp()
+        {
             Console.WriteLine("Welcome Masha\nare you on airplane?");
-            string airquestion = "";
-            bool b = true;
-            Console.WriteLine(airquestion.ToString());
-            airquestion = Console.ReadLine();
+            
+            string airquestion = Console.ReadLine();
+            
+            Debug.Assert(airquestion != null, nameof(airquestion) + " != null");
+            
             if (airquestion.ToLower().Equals("yes"))
             {
                 Console.WriteLine("Good for you Mashoshka");
-                b = true;
                 Console.ReadLine();
-                ground();
-            }
-            if (airquestion.ToLower().Equals("no"))
+                Ground();
+            } 
+            else if (airquestion.ToLower().Equals("no"))
             {
                 Console.WriteLine("Huh, I got confused..Probably..");
-                b = false;
                 Console.ReadLine();
-                whynot();
-            }
+                WhyNot();
+            } 
             else
             {
-                goodbye();
+                Goodbye();
             }
             Console.ReadLine();
-
-
         }
-        static void ground()
+        private static void Ground()
         {
 
-            string say1, message1;
-            bool b = true;
-            message1 = "What are you doin' now?";
+            string say, message;
+            
+            message = "What are you doin' now?";
             Console.WriteLine("so.....");
-            Console.ReadLine();
-            Console.WriteLine(message1);
-            say1 = Console.ReadLine();
-            if (say1.ToLower().Equals(""))
+            Console.ReadKey();
+            Console.WriteLine(message);
+            say = Console.ReadLine();
+            if (say.ToLower().Equals(""))
             {
-                goodbye();
+                Goodbye();
             }
             else
             {
-                Console.WriteLine("oh really? let me quote you, you said '" + say1 + "'\nIs this what are you saying?(yes/no)");
-                say1 = Console.ReadLine();
-                if (say1.ToLower().Equals("yes"))
+                Console.WriteLine("oh really? let me quote you, you said '" + say + "'\nIs this what are you saying?(yes/no)");
+                say = Console.ReadLine();
+                
+                Debug.Assert(say != null, nameof(say) + " != null");
+                
+                if (say.ToLower().Equals("yes"))
                 {
                     Console.WriteLine("Jokes on you I dont really care.");
-                    b = true;
                     Console.ReadLine();
                     Environment.Exit(0);
                 }
-                if (say1.ToLower().Equals("no"))
+                else if (say.ToLower().Equals("no"))
                 {
                     Console.WriteLine("oh...kay...let me ask you the whole over again...");
-                    b = false;
                     Console.ReadLine();
-                    ground();
+                    Ground();
                 }
                 else
                 {
-                    goodbye();
+                    Goodbye();
                 }
             }
         }
-        static void whynot()
+        private static void WhyNot()
         {
-            string answer1;
+            string answer;
             Console.WriteLine("Why aren't you on Airplane?");
-            answer1 = Console.ReadLine();
-            Console.WriteLine("You said '" + answer1 + "'\nSounds terrible, I hope you get into plane soon");
+            answer = Console.ReadLine();
+            Console.WriteLine("You said '" + answer + "'\nSounds terrible, I hope you get into plane soon");
             Console.ReadLine();
-            ground();
+            Ground();
         }
-        static void goodbye()
+        private static void Goodbye()
         {
             Console.WriteLine("lol masha didnt say yes or no\nToo bad, Goodbye");
             Console.ReadLine();
             Environment.Exit(0);
-
         }
     }
 }
