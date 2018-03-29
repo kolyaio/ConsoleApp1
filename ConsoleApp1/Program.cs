@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,7 @@ namespace ConsoleApp1
             } 
             else
             {
-                Goodbye();
+               AreYouSure(StartUp);
             }
             Console.ReadLine();
         }
@@ -62,7 +63,7 @@ namespace ConsoleApp1
             say = Console.ReadLine();
             if (say.ToLower().Equals(""))
             {
-                Goodbye();
+                AreYouSure(Ground);
             }
             else
             {
@@ -85,7 +86,7 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    Goodbye();
+                    AreYouSure(Ground);
                 }
             }
         }
@@ -100,9 +101,30 @@ namespace ConsoleApp1
         }
         private static void Goodbye()
         {
-            Console.WriteLine("lol masha didnt say yes or no\nToo bad, Goodbye");
+            Console.WriteLine("lol masha, you decided to leave ? :-( Bye Bye.");
             Console.ReadLine();
             Environment.Exit(0);
+        }
+
+        private static void AreYouSure(Action callback)
+        {
+            string answer;
+            Console.WriteLine("masha ? Are you sure you want to leave?");
+            answer = Convert.ToString(Console.ReadLine());
+            if (answer.ToLower().Equals("y"))
+            {
+               Goodbye();
+            }
+            else if(answer.ToLower().Equals("n"))
+            {
+                callback();
+            }
+            else
+            {
+                Console.WriteLine("You should input Y / N values only.\n ");
+                AreYouSure(callback);
+            }
+           
         }
     }
 }
